@@ -1,0 +1,62 @@
+2017-04-25 11:55:47,027: ERROR	pgadmin:	Exception when checking for update
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/urllib/request.py", line 1318, in do_open
+    encode_chunked=req.has_header('Transfer-encoding'))
+  File "/usr/local/lib/python3.6/http/client.py", line 1239, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "/usr/local/lib/python3.6/http/client.py", line 1285, in _send_request
+    self.endheaders(body, encode_chunked=encode_chunked)
+  File "/usr/local/lib/python3.6/http/client.py", line 1234, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "/usr/local/lib/python3.6/http/client.py", line 1026, in _send_output
+    self.send(msg)
+  File "/usr/local/lib/python3.6/http/client.py", line 964, in send
+    self.connect()
+  File "/usr/local/lib/python3.6/http/client.py", line 1400, in connect
+    server_hostname=server_hostname)
+  File "/usr/local/lib/python3.6/ssl.py", line 401, in wrap_socket
+    _context=self, _session=session)
+  File "/usr/local/lib/python3.6/ssl.py", line 808, in __init__
+    self.do_handshake()
+  File "/usr/local/lib/python3.6/ssl.py", line 1061, in do_handshake
+    self._sslobj.do_handshake()
+  File "/usr/local/lib/python3.6/ssl.py", line 683, in do_handshake
+    self._sslobj.do_handshake()
+socket.timeout: _ssl.c:733: The handshake operation timed out
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/src/app/pgadmin/browser/__init__.py", line 454, in index
+    response = urlreq.urlopen(url, data, 5)
+  File "/usr/local/lib/python3.6/urllib/request.py", line 223, in urlopen
+    return opener.open(url, data, timeout)
+  File "/usr/local/lib/python3.6/urllib/request.py", line 526, in open
+    response = self._open(req, data)
+  File "/usr/local/lib/python3.6/urllib/request.py", line 544, in _open
+    '_open', req)
+  File "/usr/local/lib/python3.6/urllib/request.py", line 504, in _call_chain
+    result = func(*args)
+  File "/usr/local/lib/python3.6/urllib/request.py", line 1361, in https_open
+    context=self._context, check_hostname=self._check_hostname)
+  File "/usr/local/lib/python3.6/urllib/request.py", line 1320, in do_open
+    raise URLError(err)
+urllib.error.URLError: <urlopen error _ssl.c:733: The handshake operation timed out>
+2017-04-26 02:10:01,940: ERROR	pgadmin:	invalid literal for int() with base 10: 'None'
+Traceback (most recent call last):
+  File "/usr/src/app/pgadmin/browser/server_groups/servers/databases/__init__.py", line 738, in get_new_sql
+    "/".join([self.template_path, 'allowed_privs.json'])
+  File "/usr/local/lib/python3.6/site-packages/flask/templating.py", line 133, in render_template
+    return _render(ctx.app.jinja_env.get_or_select_template(template_name_or_list),
+  File "/usr/local/lib/python3.6/site-packages/jinja2/environment.py", line 869, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+  File "/usr/local/lib/python3.6/site-packages/jinja2/environment.py", line 830, in get_template
+    return self._load_template(name, self.make_globals(globals))
+  File "/usr/local/lib/python3.6/site-packages/jinja2/environment.py", line 804, in _load_template
+    template = self.loader.load(self, name, globals)
+  File "/usr/local/lib/python3.6/site-packages/jinja2/loaders.py", line 113, in load
+    source, filename, uptodate = self.get_source(environment, name)
+  File "/usr/src/app/pgadmin/utils/versioned_template_loader.py", line 35, in get_source
+    if server_version['number'] > int(specified_version_number):
+ValueError: invalid literal for int() with base 10: 'None'
+2017-04-26 02:13:32,615: WARNING	pgadmin:	Connection to the server has been lost!

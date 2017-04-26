@@ -1,37 +1,38 @@
-web:
-  restart: always
-  build: ./web
-  expose:
-    - "8000"
-  links:
-    - postgres:postgres
-  volumes:
-    - /usr/src/app/static
-  env_file: .env
-  command: /usr/local/bin/gunicorn -w 2 -b :8000 app:app
+version: '2'
 
-nginx:
-  restart: always
-  build: ./nginx/
-  ports:
-    - "80:80"
-  volumes:
-    - /www/static
-  volumes_from:
-    - web
-  links:
-    - web:web
+services:
 
-data:
-  image: postgres:latest
-  volumes:
-    - /var/lib/postgresql
-  command: "true"
+  web:
+    restart: always
+    build: ./web
+    networks:
+      - front-tier
+      - back-tier
+    volumes:
+      - /media/lee/78b3df3f-70e8-4101-b632-d3b341665d5f/mycodebase/Dockerizing-pgAdmin-with-Compose/web:/usr/src/app
+    command: /usr/local/bin/gunicorn wsgi:application -w 2 -b :5050
 
-postgres:
-  restart: always
-  image: postgres:latest
-  volumes_from:
-    - data
-  ports:
-    - "5432:5432"
+  nginx:
+    restart: always
+    build: ./nginx
+    ports:
+      - "80:80"
+    networks:
+      - front-tier
+
+  postgres:
+    image: postgres:latest
+    env_file: .env
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data/
+    networks:
+      - back-tier 
+
+volumes: 
+  pgdata:
+
+networks:
+  front-tier:
+  back-tier:
