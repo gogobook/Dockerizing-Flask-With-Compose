@@ -37,3 +37,7 @@ PostgreSQL Database is at 0.0.0.0:5432, setup by docker-compose.
 pgAdmin4 can connect it by your ip:5432.
 
 ## SSL may need to setup.
+
+## Note
+If you want to use newest pgAdmin4 from https://github.com/postgres/pgadmin4.  
+You need add `Flask-Migrate==2.0.3` to requirements.txt or you will get error `ImportError: No module named 'flask_migrate'`.
